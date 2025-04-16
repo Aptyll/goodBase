@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI System Test</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: white;
+        }
+
+        #ui-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease;
+        }
+
+        #ui-container.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #page-tabs {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 10px;
+        }
+
+        .page-tab {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #444;
+            border: 1px solid #666;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.2s;
+        }
+
+        .page-tab:hover {
+            background-color: #555;
+        }
+
+        .page-tab.active {
+            background-color: #666;
+            border-color: #999;
+        }
+
+        .ui-page {
+            display: none;
+        }
+
+        .ui-page.active {
+            display: block;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            gap: 5px;
+        }
+
+        .grid-button {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #333;
+            border: 1px solid #555;
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            transition: background-color 0.2s;
+        }
+
+        .grid-button:hover {
+            background-color: #444;
+        }
+
+        .grid-button:active {
+            background-color: #555;
+        }
+
+        .hotkey {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            font-size: 10px;
+            color: #aaa;
+        }
+
+        .button-icon {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="ui-container">
+        <div id="page-tabs">
+            <div class="page-tab active" data-page="1">1</div>
+            <div class="page-tab" data-page="2">2</div>
+            <div class="page-tab" data-page="3">3</div>
+            <div class="page-tab" data-page="4">4</div>
+            <div class="page-tab" data-page="5">5</div>
+            <div class="page-tab" data-page="6">6</div>
+        </div>
+
+        <div class="ui-page active" data-page="1">
+            <div class="button-grid">
+                <!-- Top Row -->
+                <div class="grid-button" data-action="action-q">
+                    <span class="button-icon">⚔️</span>
+                    <span class="hotkey">Q</span>
+                </div>
+                <div class="grid-button" data-action="action-w">
+                    <span class="button-icon">🛡️</span>
+                    <span class="hotkey">W</span>
+                </div>
+                <div class="grid-button" data-action="action-e">
+                    <span class="button-icon">🏹</span>
+                    <span class="hotkey">E</span>
+                </div>
+                <div class="grid-button" data-action="action-r">
+                    <span class="button-icon">🔮</span>
+                    <span class="hotkey">R</span>
+                </div>
+                <div class="grid-button" data-action="action-t">
+                    <span class="button-icon">⚡</span>
+                    <span class="hotkey">T</span>
+                </div>
+
+                <!-- Middle Row -->
+                <div class="grid-button" data-action="action-a">
+                    <span class="button-icon">🏃</span>
+                    <span class="hotkey">A</span>
+                </div>
+                <div class="grid-button" data-action="action-s">
+                    <span class="button-icon">🧙</span>
+                    <span class="hotkey">S</span>
+                </div>
+                <div class="grid-button" data-action="action-d">
+                    <span class="button-icon">🔥</span>
+                    <span class="hotkey">D</span>
+                </div>
+                <div class="grid-button" data-action="action-f">
+                    <span class="button-icon">❄️</span>
+                    <span class="hotkey">F</span>
+                </div>
+                <div class="grid-button" data-action="action-g">
+                    <span class="button-icon">🌪️</span>
+                    <span class="hotkey">G</span>
+                </div>
+
+                <!-- Bottom Row -->
+                <div class="grid-button" data-action="action-z">
+                    <span class="button-icon">🧪</span>
+                    <span class="hotkey">Z</span>
+                </div>
+                <div class="grid-button" data-action="action-x">
+                    <span class="button-icon">💰</span>
+                    <span class="hotkey">X</span>
+                </div>
+                <div class="grid-button" data-action="action-c">
+                    <span class="button-icon">🔧</span>
+                    <span class="hotkey">C</span>
+                </div>
+                <div class="grid-button" data-action="action-v">
+                    <span class="button-icon">📜</span>
+                    <span class="hotkey">V</span>
+                </div>
+                <div class="grid-button" data-action="action-b">
+                    <span class="button-icon">🔍</span>
+                    <span class="hotkey">B</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-page" data-page="2">
+            <div class="button-grid">
+                <!-- Top Row -->
+                <div class="grid-button" data-action="action-q-p2">
+                    <span class="button-icon">🏠</span>
+                    <span class="hotkey">Q</span>
+                </div>
+                <div class="grid-button" data-action="action-w-p2">
+                    <span class="button-icon">🏭</span>
+                    <span class="hotkey">W</span>
+                </div>
+                <div class="grid-button" data-action="action-e-p2">
+                    <span class="button-icon">🏟️</span>
+                    <span class="hotkey">E</span>
+                </div>
+                <div class="grid-button" data-action="action-r-p2">
+                    <span class="button-icon">🏰</span>
+                    <span class="hotkey">R</span>
+                </div>
+                <div class="grid-button" data-action="action-t-p2">
+                    <span class="button-icon">⛪</span>
+                    <span class="hotkey">T</span>
+                </div>
+
+                <!-- Middle Row -->
+                <div class="grid-button" data-action="action-a-p2">
+                    <span class="button-icon">👨‍🌾</span>
+                    <span class="hotkey">A</span>
+                </div>
+                <div class="grid-button" data-action="action-s-p2">
+                    <span class="button-icon">👷</span>
+                    <span class="hotkey">S</span>
+                </div>
+                <div class="grid-button" data-action="action-d-p2">
+                    <span class="button-icon">👨‍🔧</span>
+                    <span class="hotkey">D</span>
+                </div>
+                <div class="grid-button" data-action="action-f-p2">
+                    <span class="button-icon">👨‍🔬</span>
+                    <span class="hotkey">F</span>
+                </div>
+                <div class="grid-button" data-action="action-g-p2">
+                    <span class="button-icon">👨‍💼</span>
+                    <span class="hotkey">G</span>
+                </div>
+
+                <!-- Bottom Row -->
+                <div class="grid-button" data-action="action-z-p2">
+                    <span class="button-icon">🌾</span>
+                    <span class="hotkey">Z</span>
+                </div>
+                <div class="grid-button" data-action="action-x-p2">
+                    <span class="button-icon">🪵</span>
+                    <span class="hotkey">X</span>
+                </div>
+                <div class="grid-button" data-action="action-c-p2">
+                    <span class="button-icon">🧱</span>
+                    <span class="hotkey">C</span>
+                </div>
+                <div class="grid-button" data-action="action-v-p2">
+                    <span class="button-icon">⛏️</span>
+                    <span class="hotkey">V</span>
+                </div>
+                <div class="grid-button" data-action="action-b-p2">
+                    <span class="button-icon">💎</span>
+                    <span class="hotkey">B</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // UI System State
+        let isUIVisible = true;
+        let currentPage = 1;
+
+        // DOM Elements
+        const uiContainer = document.getElementById('ui-container');
+        const pageTabs = document.querySelectorAll('.page-tab');
+        const uiPages = document.querySelectorAll('.ui-page');
+        const gridButtons = document.querySelectorAll('.grid-button');
+
+        // Toggle UI visibility
+        function toggleUI() {
+            isUIVisible = !isUIVisible;
+            uiContainer.classList.toggle('hidden', !isUIVisible);
+        }
+
+        // Switch to a specific page
+        function switchToPage(pageNumber) {
+            currentPage = pageNumber;
+
+            // Update tab highlighting
+            pageTabs.forEach(tab => {
+                tab.classList.toggle('active', tab.dataset.page == pageNumber);
+            });
+
+            // Show the selected page, hide others
+            uiPages.forEach(page => {
+                page.classList.toggle('active', page.dataset.page == pageNumber);
+            });
+        }
+
+        // Handle button clicks
+        function handleButtonClick(action) {
+            console.log(`Action triggered: ${action}`);
+            // Here you would implement the actual actions
+        }
+
+        // Set up event listeners for tabs
+        pageTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                switchToPage(tab.dataset.page);
+            });
+        });
+
+        // Set up event listeners for grid buttons
+        gridButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                handleButtonClick(button.dataset.action);
+            });
+        });
+
+        // Keyboard event handling
+        document.addEventListener('keydown', (event) => {
+            // Don't process hotkeys if UI is hidden
+            if (!isUIVisible) return;
+
+            const key = event.key.toLowerCase();
+
+            // Page switching with number keys 1-6
+            if (key >= '1' && key <= '6') {
+                switchToPage(parseInt(key));
+                return;
+            }
+
+            // Grid button hotkeys
+            const validKeys = ['q', 'w', 'e', 'r', 't', 'a', 's', 'd', 'f', 'g', 'z', 'x', 'c', 'v', 'b'];
+            if (validKeys.includes(key)) {
+                // Find the button on the current page with this hotkey
+                const currentPageElement = document.querySelector(`.ui-page[data-page="${currentPage}"]`);
+                const button = currentPageElement.querySelector(`.grid-button[data-action*="${key}"]`);
+
+                if (button) {
+                    // Visual feedback
+                    button.style.backgroundColor = '#555';
+                    setTimeout(() => {
+                        button.style.backgroundColor = '';
+                    }, 100);
+
+                    // Trigger the action
+                    handleButtonClick(button.dataset.action);
+                }
+            }
+
+            // Toggle UI with Tab key (example)
+            if (event.key === 'Tab') {
+                event.preventDefault();
+                toggleUI();
+            }
+        });
+    </script>
+</body>
+</html>

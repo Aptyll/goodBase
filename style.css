@@ -1,0 +1,221 @@
+body {
+    margin: 0;
+    overflow: hidden; /* Hide scrollbars */
+    background-color: #222; /* Dark background */
+    display: flex; /* Enable flexbox for centering */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    width: 100%;
+    height: 100vh;
+}
+
+canvas {
+    display: block; /* Remove extra space below canvas */
+    border: none; /* Remove border */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#playerControls {
+    /* Keep positioning relative to viewport */
+    position: fixed; /* Changed from absolute */
+    bottom: 20px; /* Position near the bottom */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    display: flex;
+    gap: 15px;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    padding: 15px;
+    border-radius: 8px;
+    transition: opacity 0.3s ease;
+}
+
+#playerControls.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.team-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.team-label {
+    color: white;
+    font-size: 12px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+.playerBtn {
+    padding: 8px 12px;
+    margin: 2px 0;
+    font-size: 14px;
+    background-color: #555;
+    color: white;
+    border: 1px solid #777;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    width: 95px;
+}
+
+.playerBtn:hover {
+    background-color: #666;
+}
+
+.playerBtn.active {
+    border-width: 2px;
+    font-weight: bold;
+}
+
+/* Team-specific colors */
+.playerBtn.team1 {
+    background-color: hsl(0, 50%, 30%);
+}
+.playerBtn.team1:hover {
+    background-color: hsl(0, 50%, 35%);
+}
+.playerBtn.team1.active {
+    background-color: hsl(0, 70%, 45%);
+    border-color: hsl(0, 80%, 70%);
+}
+
+.playerBtn.team2 {
+    background-color: hsl(210, 50%, 30%);
+}
+.playerBtn.team2:hover {
+    background-color: hsl(210, 50%, 35%);
+}
+.playerBtn.team2.active {
+    background-color: hsl(210, 70%, 45%);
+    border-color: hsl(210, 80%, 70%);
+}
+
+.playerBtn.team3 {
+    background-color: hsl(120, 40%, 25%);
+}
+.playerBtn.team3:hover {
+    background-color: hsl(120, 40%, 30%);
+}
+.playerBtn.team3.active {
+    background-color: hsl(120, 60%, 35%);
+    border-color: hsl(120, 70%, 60%);
+}
+
+.playerBtn.team4 {
+    background-color: hsl(30, 50%, 30%);
+}
+.playerBtn.team4:hover {
+    background-color: hsl(30, 50%, 35%);
+}
+.playerBtn.team4.active {
+    background-color: hsl(30, 60%, 40%);
+    border-color: hsl(30, 70%, 60%);
+}
+
+/* Resource and Supply Display */
+#resourceSupplyDisplay {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    color: white;
+    z-index: 1000;
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.resourceDisplay, .supplyDisplay {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.label {
+    color: white;
+}
+
+.resourceValue {
+    color: #FFD700; /* Yellow color for resources */
+}
+
+.supplyValue {
+    color: #4DA6FF; /* Blue color for supply */
+}
+
+#performanceMonitor {
+    position: fixed;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 8px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    color: white;
+    z-index: 1000;
+    transition: opacity 0.3s ease;
+}
+
+#performanceMonitor.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.monitorLine {
+    margin: 5px 0;
+    font-size: 16px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Game Timer */
+#gameTimer {
+    position: fixed;
+    bottom: 310px; /* Position exactly above the minimap (300px + 12px border) + 4px gap */
+    left: 0px; /* Small offset to show border */
+    background-color: rgb(13, 12, 12);
+    color: #ffffff; /* Same yellow as resources */
+    font-family: 'Courier New', monospace;
+    font-size: 25px;
+    font-weight: bold;
+    padding: 6px 16px;
+    border: 6px solid #333333; /* Thicker border to match minimap */
+    border-radius: 0 8px 0 0; /* Rounded top-right corner */
+    z-index: 1000;
+}
+
+/* Minimap Styles */
+#minimap-container {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 300px;
+    height: 300px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 6px solid #333333; /* Thicker border */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.5); /* Subtle shadow for depth */
+    z-index: 1000;
+    overflow: hidden;
+}
+
+#minimapCanvas {
+    width: 100%;
+    height: 100%;
+    display: block;
+}

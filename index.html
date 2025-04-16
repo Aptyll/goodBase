@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple RTS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- Minimap -->
+    <div id="minimap-container">
+        <canvas id="minimapCanvas"></canvas>
+    </div>
+
+    <!-- Game Timer -->
+    <div id="gameTimer">00:00</div>
+
+    <!-- Resource and Supply Display -->
+    <div id="resourceSupplyDisplay">
+        <div class="resourceDisplay">
+            <span class="label">Resources:</span>
+            <span id="resourceValue" class="resourceValue">0</span>
+        </div>
+        <div class="supplyDisplay">
+            <span class="label">Supply:</span>
+            <span id="supplyValue" class="supplyValue">0/10</span>
+        </div>
+    </div>
+
+    <div id="playerControls" class="hidden">
+        <!-- Team 1 (Red) -->
+        <div class="team-group">
+            <div class="team-label">Team 1</div>
+            <button id="player1Btn" class="playerBtn active team1">Player 1 (1)</button>
+            <button id="player2Btn" class="playerBtn team1">Player 2 (2)</button>
+        </div>
+
+        <!-- Team 2 (Blue) -->
+        <div class="team-group">
+            <div class="team-label">Team 2</div>
+            <button id="player3Btn" class="playerBtn team2">Player 3 (3)</button>
+            <button id="player4Btn" class="playerBtn team2">Player 4 (4)</button>
+        </div>
+
+        <!-- Team 3 (Green) -->
+        <div class="team-group">
+            <div class="team-label">Team 3</div>
+            <button id="player5Btn" class="playerBtn team3">Player 5 (5)</button>
+            <button id="player6Btn" class="playerBtn team3">Player 6 (6)</button>
+        </div>
+
+        <!-- Team 4 (Brown) -->
+        <div class="team-group">
+            <div class="team-label">Team 4</div>
+            <button id="player7Btn" class="playerBtn team4">Player 7 (7)</button>
+            <button id="player8Btn" class="playerBtn team4">Player 8 (8)</button>
+        </div>
+    </div>
+    <div id="performanceMonitor" class="hidden">
+        <div class="monitorLine">FPS: <span id="fpsCounter">0</span></div>
+        <div class="monitorLine">Frame Time: <span id="frameTime">0</span>ms</div>
+        <div class="monitorLine">Memory: <span id="memoryUsage">0</span>MB</div>
+    </div>
+    <script src="ui-system.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
